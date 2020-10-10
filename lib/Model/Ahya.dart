@@ -1,19 +1,4 @@
-
-class Ayah {
-  Ayah({
-    this.number,
-    this.audio,
-    this.audioSecondary,
-    this.text,
-    this.numberInSurah,
-    this.juz,
-    this.manzil,
-    this.page,
-    this.ruku,
-    this.hizbQuarter,
-    this.sajda,
-  });
-
+class Ayahs {
   int number;
   String audio;
   List<String> audioSecondary;
@@ -26,31 +11,59 @@ class Ayah {
   int hizbQuarter;
   bool sajda;
 
-  factory Ayah.fromJson(Map<String, dynamic> json) => Ayah(
-    number: json["number"],
-    audio: json["audio"],
-    audioSecondary: List<String>.from(json["audioSecondary"].map((x) => x)),
-    text: json["text"],
-    numberInSurah: json["numberInSurah"],
-    juz: json["juz"],
-    manzil: json["manzil"],
-    page: json["page"],
-    ruku: json["ruku"],
-    hizbQuarter: json["hizbQuarter"],
-    sajda: json["sajda"],
-  );
+  Ayahs(
+      {int number,
+        String audio,
+        List<String> audioSecondary,
+        String text,
+        int numberInSurah,
+        int juz,
+        int manzil,
+        int page,
+        int ruku,
+        int hizbQuarter,
+        bool sajda}) {
+    this.number = number;
+    this.audio = audio;
+    this.audioSecondary = audioSecondary;
+    this.text = text;
+    this.numberInSurah = numberInSurah;
+    this.juz = juz;
+    this.manzil = manzil;
+    this.page = page;
+    this.ruku = ruku;
+    this.hizbQuarter = hizbQuarter;
+    this.sajda = sajda;
+  }
 
-  Map<String, dynamic> toJson() => {
-    "number": number,
-    "audio": audio,
-    "audioSecondary": List<dynamic>.from(audioSecondary.map((x) => x)),
-    "text": text,
-    "numberInSurah": numberInSurah,
-    "juz": juz,
-    "manzil": manzil,
-    "page": page,
-    "ruku": ruku,
-    "hizbQuarter": hizbQuarter,
-    "sajda": sajda,
-  };
+
+
+  Ayahs.fromJson(Map<String, dynamic> json) {
+    number = json['number'];
+    audio = json['audio'];
+    audioSecondary = json['audioSecondary'].cast<String>();
+    text = json['text'];
+    numberInSurah = json['numberInSurah'];
+    juz = json['juz'];
+    manzil = json['manzil'];
+    page = json['page'];
+    ruku = json['ruku'];
+    hizbQuarter = json['hizbQuarter'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['number'] = this.number;
+    data['audio'] = this.audio;
+    data['audioSecondary'] = this.audioSecondary;
+    data['text'] = this.text;
+    data['numberInSurah'] = this.numberInSurah;
+    data['juz'] = this.juz;
+    data['manzil'] = this.manzil;
+    data['page'] = this.page;
+    data['ruku'] = this.ruku;
+    data['hizbQuarter'] = this.hizbQuarter;
+    data['sajda'] = this.sajda;
+    return data;
+  }
 }

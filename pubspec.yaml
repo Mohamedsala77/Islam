@@ -39,6 +39,7 @@ dependencies:
   circular_menu: ^1.1.0
   font_awesome_flutter: any
   http: ^0.12.2
+  page_turn: ^1.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,48 +1,54 @@
-// To parse this JSON data, do
-//
-//     final topLevel = topLevelFromJson(jsonString);
-
-import 'dart:convert';
-
-import 'Ahya.dart';
-
-List<Surah> surahFromJson(String str) => List<Surah>.from(json.decode(str).map((x) => Surah.fromJson(x)));
-
-String surahToJson(List<Surah> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
+import 'package:quran/Model/Ahya.dart';
 class Surah {
-  Surah({
-    this.number,
-    this.name,
-    this.englishName,
-    this.englishNameTranslation,
-    this.revelationType,
-    this.ayahs,
-  });
-
   int number;
   String name;
   String englishName;
   String englishNameTranslation;
   String revelationType;
-  List<Ayah> ayahs;
+  List<Ayahs> ayahs;
 
-  factory Surah.fromJson(Map<String, dynamic> json) => Surah(
-    number: json["number"],
-    name: json["name"],
-    englishName: json["englishName"],
-    englishNameTranslation: json["englishNameTranslation"],
-    revelationType: json["revelationType"],
-    ayahs: List<Ayah>.from(json["ayahs"].map((x) => Ayah.fromJson(x))),
-  );
+  Surah(
+      {int number,
+        String name,
+        String englishName,
+        String englishNameTranslation,
+        String revelationType,
+        List<Ayahs> ayahs}) {
+    this.number = number;
+    this.name = name;
+    this.englishName = englishName;
+    this.englishNameTranslation = englishNameTranslation;
+    this.revelationType = revelationType;
+    this.ayahs = ayahs;
+  }
 
-  Map<String, dynamic> toJson() => {
-    "number": number,
-    "name": name,
-    "englishName": englishName,
-    "englishNameTranslation": englishNameTranslation,
-    "revelationType": revelationType,
-    "ayahs": List<dynamic>.from(ayahs.map((x) => x.toJson())),
-  };
+
+
+  Surah.fromJson(Map<String, dynamic> json) {
+    number = json['number'];
+    name = json['name'];
+    englishName = json['englishName'];
+    englishNameTranslation = json['englishNameTranslation'];
+    revelationType = json['revelationType'];
+    if (json['ayahs'] != null) {
+      ayahs = new List<Ayahs>();
+      json['ayahs'].forEach((v) {
+        ayahs.add(new Ayahs.fromJson(v));
+      });
+    }
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['number'] = this.number;
+    data['name'] = this.name;
+    data['englishName'] = this.englishName;
+    data['englishNameTranslation'] = this.englishNameTranslation;
+    data['revelationType'] = this.revelationType;
+    if (this.ayahs != null) {
+      data['ayahs'] = this.ayahs.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
