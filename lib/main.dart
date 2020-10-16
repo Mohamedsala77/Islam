@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'Splashs/SplashScreen.dart';
 
 void main() {
-
   runApp(
       EasyLocalization(
   child: Home(),
@@ -21,7 +20,6 @@ void main() {
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    EasyLocalization.of(context).locale==Locale("ar","EG");
 
     return MaterialApp(
 

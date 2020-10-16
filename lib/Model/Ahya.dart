@@ -1,7 +1,5 @@
 class Ayahs {
   int number;
-  String audio;
-  List<String> audioSecondary;
   String text;
   int numberInSurah;
   int juz;
@@ -24,8 +22,6 @@ class Ayahs {
         int hizbQuarter,
         bool sajda}) {
     this.number = number;
-    this.audio = audio;
-    this.audioSecondary = audioSecondary;
     this.text = text;
     this.numberInSurah = numberInSurah;
     this.juz = juz;
@@ -40,8 +36,6 @@ class Ayahs {
 
   Ayahs.fromJson(Map<String, dynamic> json) {
     number = json['number'];
-    audio = json['audio'];
-    audioSecondary = json['audioSecondary'].cast<String>();
     text = json['text'];
     numberInSurah = json['numberInSurah'];
     juz = json['juz'];
@@ -54,8 +48,6 @@ class Ayahs {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['number'] = this.number;
-    data['audio'] = this.audio;
-    data['audioSecondary'] = this.audioSecondary;
     data['text'] = this.text;
     data['numberInSurah'] = this.numberInSurah;
     data['juz'] = this.juz;
