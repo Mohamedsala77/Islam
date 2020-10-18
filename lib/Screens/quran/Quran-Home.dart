@@ -23,12 +23,10 @@ class _QHomeState extends State<QHome> {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   List<Surah> surah = snapshot.data;
-
                   return Container(
                     child: PageView.builder(
                         itemCount: 603,
                         itemBuilder: (context, index) {
-
                           List<String> text = [];
                           List<String> surahName = [];
                           for (int i = 0; i < surah.length; i++) {
@@ -36,12 +34,16 @@ class _QHomeState extends State<QHome> {
                             for (int b = 0; b < ayahLenght; b++) {
                               if (surah[i].ayahs[b].page == (index + 1)) {
                                 text.add(surah[i].ayahs[b].text);
+                                if (surah[i].ayahs[b].page == 48) {
+                                }
+                                if (i <= surah[i].ayahs[b].text.length) {
+                                  surahName.add(surah[i].name);
+                                } else {
+                                  surahName.add(surah[i + 1].name);
+                                }
                               }
-                              surahName.add(surah[i].name);
-
                             }
                           }
-
                           return Column(
                             children: [
                               Text(
@@ -58,7 +60,7 @@ class _QHomeState extends State<QHome> {
                                 style: TextStyle(fontSize: 30),
                               ),
                               Text(
-                                surahName[index].toString(),
+                                surahName[1].toString(),
                                 textAlign: TextAlign.start,
                                 style: TextStyle(fontSize: 30),
                               )
