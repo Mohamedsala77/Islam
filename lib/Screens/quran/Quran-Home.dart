@@ -13,52 +13,64 @@ class _QHomeState extends State<QHome> {
   @override
   Widget build(BuildContext context) {
     QuranServer quranServer = QuranServer();
-    return Scaffold(appBar: AppBar(title: Text(" قراءن كريم"),
-    ), body: Container(
-      child: FutureBuilder(future: quranServer.QuranData(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              List<Surah> surah = snapshot.data;
-                 List<Ayahs> listayah=[];
-                for(int i=0;i<surah.length;i++){
-                  int ayahLenght=surah[i].ayahs.length;
-                  for(int b=0;b<ayahLenght;b++){
-               listayah.add( surah[i].ayahs[b]);
-                  }
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("قرأن كريم"),
+        ),
+        body: Container(
+          child: FutureBuilder(
+              future: quranServer.QuranData(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  List<Surah> surah = snapshot.data;
+
+                  return Container(
+                    child: PageView.builder(
+                        itemCount: 603,
+                        itemBuilder: (context, index) {
+                          List<String> text = [];
+                          List<String> surahName = [];
+                          for (int i = 0; i < surah.length; i++) {
+                            int ayahLenght = surah[i].ayahs.length;
+                            for (int b = 0; b < ayahLenght; b++) {
+                              if (surah[i].ayahs[b].page == (index + 1)) {
+                                text.add(surah[i].ayahs[b].text);
+                              }
+                              surahName.add(surah[i].name);
+
+                            }
+                          }
+
+                          return Column(
+                            children: [
+                              Text(
+                                text.toString(),
+                                textAlign: TextAlign.start,
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Text(
+                                (index + 1).toString(),
+                                textAlign: TextAlign.start,
+                                style: TextStyle(fontSize: 30),
+                              ),
+                              Text(
+                                surahName[index].toString(),
+                                textAlign: TextAlign.start,
+                                style: TextStyle(fontSize: 30),
+                              )
+                            ],
+                          );
+                        }),
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
-              return Container(
-                child: PageView.builder(
-                    itemCount: 603, itemBuilder: (context, index) {
-                  return (Container(
-                    child:
-
-
-                    Stack(
-
-                      children:[ Wrap(
-                          children: listayah.map((e) => Text((e.page== index+1)?e.text+e.numberInSurah.toString():"",style: TextStyle(fontSize: 20),)).toList()),
-                        Transform.translate(
-                          offset: Offset(-150,MediaQuery.of(context).size.height-150),
-                          child:Container(
-                            decoration: BoxDecoration(
-                                color: Colors.blue,
-                                borderRadius: BorderRadius.circular(30)),
-                            width: 60,
-                            height: 60,
-
-                            child: FlatButton(
-                              child: Text((index+1).toString(),style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold,color: Colors.black)),
-                            ),
-                          ),
-                        )
-                   ] ),
-                  ));
-                }),
-              );
-            } else {
-              return Center(child: CircularProgressIndicator(),);
-            }
-          }),
-    ));
+              }),
+        ));
   }
 }
