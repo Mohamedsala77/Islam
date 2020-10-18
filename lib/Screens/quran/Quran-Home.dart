@@ -28,6 +28,7 @@ class _QHomeState extends State<QHome> {
                     child: PageView.builder(
                         itemCount: 603,
                         itemBuilder: (context, index) {
+
                           List<String> text = [];
                           List<String> surahName = [];
                           for (int i = 0; i < surah.length; i++) {
