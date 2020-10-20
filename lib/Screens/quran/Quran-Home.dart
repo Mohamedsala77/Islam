@@ -28,12 +28,16 @@ class _QHomeState extends State<QHome> {
                         itemCount: 603,
                         itemBuilder: (context, index) {
                           List<String> text = [];
+                          List<String> ayanumper = [];
+
                           List<String> surahName = [];
                           for (int i = 0; i < surah.length; i++) {
                             int ayahLenght = surah[i].ayahs.length;
                             for (int b = 0; b < ayahLenght; b++) {
                               if (surah[i].ayahs[b].page == (index + 1)) {
                                 text.add(surah[i].ayahs[b].text);
+                                text.add(surah[i].ayahs[b].numberInSurah.toString());
+
                                 if (surah[i].ayahs[b].page == 48) {
                                 }
                                 if (i <= surah[i].ayahs[b].text.length) {
@@ -46,24 +50,34 @@ class _QHomeState extends State<QHome> {
                           }
                           return Column(
                             children: [
-                              Text(
-                                text.toString(),
-                                textAlign: TextAlign.start,
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              SizedBox(
-                                height: 15,
-                              ),
-                              Text(
-                                (index + 1).toString(),
-                                textAlign: TextAlign.start,
-                                style: TextStyle(fontSize: 30),
-                              ),
-                              Text(
-                                surahName[1].toString(),
-                                textAlign: TextAlign.start,
-                                style: TextStyle(fontSize: 30),
-                              )
+                              RichText(
+                                  textAlign: TextAlign.justify,
+                                  text: TextSpan(
+                                      style: TextStyle(
+                                          fontFamily: "Uthmanic",
+                                          fontWeight: FontWeight.normal,
+                                          fontSize: 22,
+                                          color: Theme.of(context).primaryColorDark),
+                                      text: text.toString().replaceAll("[","").replaceAll("]",""),
+                                      children: [
+                                        WidgetSpan(
+                                          child: ayaNum("${ayanumper.toString().replaceAll("[","").replaceAll("]","")}", context, Theme.of(context).primaryColor),
+                                        )
+                                      ])),
+                              //
+                              // SizedBox(
+                              //   height: 15,
+                              // ),
+                              // Text(
+                              //   (index + 1).toString(),
+                              //   textAlign: TextAlign.start,
+                              //   style: TextStyle(fontSize: 30),
+                              // ),
+                              // Text(
+                              //   surahName[1].toString(),
+                              //   textAlign: TextAlign.start,
+                              //   style: TextStyle(fontSize: 30),
+                              // )
                             ],
                           );
                         }),
@@ -76,4 +90,37 @@ class _QHomeState extends State<QHome> {
               }),
         ));
   }
+}
+
+Widget ayaNum(String num, context, Color color) {
+  return Padding(
+    padding: const EdgeInsets.only(left: 5, right: 5),
+    child: Transform.translate(
+      offset: Offset(0, 0),
+      child: Container(
+        width: 26,
+        height: 26,
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/images/bg.png"),
+            fit: BoxFit.contain,
+          ),
+        ),
+        child:
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 5),
+            child: Text(
+              num,
+              style: TextStyle(
+                  fontSize: 13,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "maddina",
+                  color: color),
+            ),
+          )
+        ]),
+      ),
+    ),
+  );
 }
